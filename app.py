@@ -4,8 +4,8 @@ from docx import Document
 import pyautogui
 from pynput.keyboard import Key, Controller
 import pandas as pd
-from flask import Flask, render_template, request, jsonify
-from locator import *
+from flask import Flask, render_template, request, jsonify,url_for
+#from locator import *
 keyboard = Controller()
 app = Flask(__name__)
 
@@ -43,7 +43,8 @@ def index():
 
 @app.route('/send-message', methods=['POST'])
 def process_from():
-    image_path = image
+    #image_path = image
+    image_path = url_for('static', filename='ME_image.jpeg')
     #phone = ['7904223840']
 
     try:
