@@ -1,6 +1,0 @@
-flask
-pywhatkit
-docx
-pyautogui
-pynput
-
