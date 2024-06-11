@@ -1,0 +1,10 @@
+{
+    "version":1,
+    "builds":
+    [
+
+    ],
+    "routes":[
+        {"src":"/(.*)","dest":"app.py"}
+    ]
+}
