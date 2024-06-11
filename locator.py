@@ -3,5 +3,5 @@
 image=r"https://github.com/apgstocks/ME_ad_campaign/blob/main/ME_image.jpeg"
 #excel=r'/Users/apsara/Documents/test.xlsx'
 excel=r"https://github.com/apgstocks/ME_ad_campaign/blob/main/test.xlsx"
-message=r""
-message=r'/Users/apsara/Documents/ME_message.docx'
+message=r"https://github.com/apgstocks/ME_ad_campaign/blob/main/ME_message.docx"
+#message=r'/Users/apsara/Documents/ME_message.docx'
