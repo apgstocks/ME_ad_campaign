@@ -62,83 +62,60 @@
         <p>Ramanathapuram</p>
         <p class="branch-info">We lead the tech support of that branch.</p>
         
-        <!-- Options for sending messages -->
-        <div class="send-option-container">
-            <button class="send-option-btn" id="send-all-btn">Send to all customers</button>
-            <button class="send-option-btn" id="send-selected-btn">Send to selected customers</button>
-        </div>
-        
-       
+        <form id="fileForm" method="post" action="/send-message" enctype="multipart/form-data">
+            <div class="send-option-container">
+                <input type="file" name="docx_file" accept=".docx" required>
+                <input type="file" name="xlsx_file" accept=".xlsx" required>
+            </div>
+            <div class="send-option-container">
+                <button type="button" class="send-option-btn" id="send-all-btn">Send to all customers</button>
+                <button type="button" class="send-option-btn" id="send-selected-btn">Send to selected customers</button>
+            </div>
+        </form>
     </div>
 
-    <!-- Optional: JavaScript for button click handling -->
+    <!-- JavaScript for form handling -->
     <script>
-        document.getElementById('send-all-btn').addEventListener('click', function() {
-            // Set the selected option to 'all'
-            
-            var form = document.createElement('form');
-            form.action = '/send-message';
-            form.method = 'post';
-            document.body.appendChild(form);
-            // Create hidden input field for send-option value
-        var sendOptionInput = document.createElement('input');
-        sendOptionInput.type = 'hidden';
-        sendOptionInput.name = 'send-option'; 
-        sendOptionInput.value = 'all'; // or 'all' depending on the selected option
-        form.appendChild(sendOptionInput);
-
-
-            
-            
-           
-            
-            
-             form.submit();
-             
-        });
-
-        document.getElementById('send-selected-btn').addEventListener('click', function() {
-           
-             // Prompt the user for start and end indexes
-             var startIndex = prompt("Enter the starting row number of the customer");
-            var endIndex = prompt("Enter the ending row number of the customer");
-
-            // Check if both start and end indexes are provided
-            if (startIndex !== null && endIndex !== null && startIndex.trim() !== '' && endIndex.trim() !== '') {
-                // Create form element
-                var form = document.createElement('form');
-                form.action = '/send-message';
-                form.method = 'post';
-                
-                document.body.appendChild(form);
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('send-all-btn').addEventListener('click', function() {
+                var form = document.getElementById('fileForm');
                 var sendOptionInput = document.createElement('input');
-        sendOptionInput.type = 'hidden';
-        sendOptionInput.name = 'send-option'; 
-        sendOptionInput.value = 'selected'; // or 'all' depending on the selected option
-        form.appendChild(sendOptionInput);
-                // Create hidden input fields for start and end indexes
-                var startIndexInput = document.createElement('input');
-                startIndexInput.type = 'hidden';
-                startIndexInput.name = 'start_index'; 
-                startIndexInput.value = startIndex;
-                form.appendChild(startIndexInput);
-
-                var endIndexInput = document.createElement('input');
-                endIndexInput.type = 'hidden';
-                endIndexInput.name = 'end_index'; 
-                endIndexInput.value = endIndex;
-                form.appendChild(endIndexInput);
-
-                // Submit the form
+                sendOptionInput.type = 'hidden';
+                sendOptionInput.name = 'send-option';
+                sendOptionInput.value = 'all';
+                form.appendChild(sendOptionInput);
                 form.submit();
-            } else {
-                // Inform the user that both start and end indexes are required
-                alert('Both start and end indexes are required.');
-            }
-        });
+            });
 
-        document.getElementById('send-message-btn').addEventListener('click', function() {
-           
+            document.getElementById('send-selected-btn').addEventListener('click', function() {
+                var startIndex = prompt("Enter the starting row number of the customer");
+                var endIndex = prompt("Enter the ending row number of the customer");
+
+                if (startIndex !== null && endIndex !== null && startIndex.trim() !== '' && endIndex.trim() !== '') {
+                    var form = document.getElementById('fileForm');
+                    var sendOptionInput = document.createElement('input');
+                    sendOptionInput.type = 'hidden';
+                    sendOptionInput.name = 'send-option';
+                    sendOptionInput.value = 'selected';
+                    form.appendChild(sendOptionInput);
+
+                    var startIndexInput = document.createElement('input');
+                    startIndexInput.type = 'hidden';
+                    startIndexInput.name = 'start_index';
+                    startIndexInput.value = startIndex;
+                    form.appendChild(startIndexInput);
+
+                    var endIndexInput = document.createElement('input');
+                    endIndexInput.type = 'hidden';
+                    endIndexInput.name = 'end_index';
+                    endIndexInput.value = endIndex;
+                    form.appendChild(endIndexInput);
+
+                    form.submit();
+                } else {
+                    alert('Both start and end indexes are required.');
+                }
+            });
         });
     </script>
 </body>
