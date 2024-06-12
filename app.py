@@ -1,23 +1,37 @@
 import os
-import platform
+import logging
 
-if 'DISPLAY' not in os.environ and platform.system() != 'Windows':
-    os.environ['DISPLAY'] = ':0'  # Mock DISPLAY for headless environment
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+
+# Mock pyautogui if not available
+try:
+    import pyautogui
+    import mouseinfo
+except ImportError:
+    logging.warning("pyautogui and mouseinfo are not available. Using mock.")
+
+    class MockPyAutoGUI:
+        def click(self, x=None, y=None, clicks=1, interval=0.0, button='left', duration=0.0, tween=None, logScreenshot=False, _pause=True):
+            logging.info("Mock click executed.")
+        
+        def press(self, keys, presses=1, interval=0.0, _pause=True, logScreenshot=False):
+            logging.info(f"Mock key press: {keys}")
+
+        def release(self, keys, _pause=True, logScreenshot=False):
+            logging.info(f"Mock key release: {keys}")
+
+    pyautogui = MockPyAutoGUI()
 
 from flask import Flask, render_template, request, jsonify
 import time
 import pywhatkit
 from docx import Document
-import pyautogui
 from pynput.keyboard import Key, Controller
 import pandas as pd
-import logging
 
 app = Flask(__name__)
 keyboard = Controller()
-
-# Set up logging
-logging.basicConfig(level=logging.INFO)
 
 def getText(filename):
     try:
